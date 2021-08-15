@@ -59,8 +59,8 @@ public class SoundStreamPlugin : FlutterPlugin,
     //========= Recorder's vars
     private val mRecordFormat = AudioFormat.ENCODING_PCM_16BIT
     private var mRecordSampleRate = 16000 // 16Khz
-    private var mRecorderBufferSize = 8192
-    private var mPeriodFrames = 8192
+    private var mRecorderBufferSize = 256
+    private var mPeriodFrames = 256
     private var audioData: ShortArray? = null
     private var mRecorder: AudioRecord? = null
     private var mListener: OnRecordPositionUpdateListener? = null
@@ -195,6 +195,7 @@ public class SoundStreamPlugin : FlutterPlugin,
     }
 
     private fun initializeRecorder(@NonNull call: MethodCall, @NonNull result: Result) {
+        mRecorderBufferSize = call.argument<Int>("frameSize") ?: mRecorderBufferSize
         mRecordSampleRate = call.argument<Int>("sampleRate") ?: mRecordSampleRate
         debugLogging = call.argument<Boolean>("showLogs") ?: false
         mPeriodFrames = AudioRecord.getMinBufferSize(mRecordSampleRate, AudioFormat.CHANNEL_IN_MONO, mRecordFormat)
@@ -298,6 +299,7 @@ public class SoundStreamPlugin : FlutterPlugin,
     }
 
     private fun initializePlayer(@NonNull call: MethodCall, @NonNull result: Result) {
+        mPlayerBufferSize = call.argument<Int>("frameSize") ?: mPlayerBufferSize
         mPlayerSampleRate = call.argument<Int>("sampleRate") ?: mPlayerSampleRate
         debugLogging = call.argument<Boolean>("showLogs") ?: false
         mPlayerFormat = AudioFormat.Builder()

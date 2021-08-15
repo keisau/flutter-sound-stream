@@ -18,8 +18,12 @@ class PlayerStream {
   }
 
   /// Initialize Player with specified [sampleRate]
-  Future<dynamic> initialize({int sampleRate = 16000, bool showLogs = false}) =>
-      _methodChannel.invokeMethod("initializePlayer", {
+  Future<dynamic> initialize({
+    int sampleRate = 16000,
+    int frameSize = 256,
+    bool showLogs = false,
+  }) => _methodChannel.invokeMethod("initializePlayer", {
+        "frameSize": frameSize,
         "sampleRate": sampleRate,
         "showLogs": showLogs,
       });

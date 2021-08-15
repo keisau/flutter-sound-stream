@@ -17,8 +17,12 @@ class RecorderStream {
   }
 
   /// Initialize Recorder with specified [sampleRate]
-  Future<dynamic> initialize({int sampleRate = 16000, bool showLogs = false}) =>
-      _methodChannel.invokeMethod<dynamic>("initializeRecorder", {
+  Future<dynamic> initialize({
+    int sampleRate = 16000,
+    int frameSize = 256,
+    bool showLogs = false,
+  }) => _methodChannel.invokeMethod("initializeRecorder", {
+        "frameSize": frameSize,
         "sampleRate": sampleRate,
         "showLogs": showLogs,
       });
