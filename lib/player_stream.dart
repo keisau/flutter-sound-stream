@@ -60,6 +60,10 @@ class PlayerStream {
     }
   }
 
+  // iOS specific, do nothing in Android
+  Future<dynamic> startEngine() =>
+      _methodChannel.invokeMethod<dynamic>("startEngine");
+
   /// Stop and close all streams. This cannot be undone
   /// Only call this method if you don't want to use this anymore
   void dispose() {

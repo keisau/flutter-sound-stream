@@ -109,6 +109,7 @@ public class SoundStreamPlugin : FlutterPlugin,
                 "stopRecording" -> stopRecording(result)
                 "initializePlayer" -> initializePlayer(call, result)
                 "startPlayer" -> startPlayer(result)
+                "startEngine" -> result.success(true)
                 "stopPlayer" -> stopPlayer(result)
                 "writeChunk" -> writeChunk(call, result)
                 else -> result.notImplemented()

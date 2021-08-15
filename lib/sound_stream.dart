@@ -33,6 +33,10 @@ class SoundStream {
   /// Return [PlayerStream] instance (Singleton).
   PlayerStream get player => PlayerStream();
 
+  // iOS specific, do nothing in Android
+  Future<dynamic> startEngine() =>
+      _methodChannel.invokeMethod<dynamic>("startEngine");
+
   Future<dynamic> _onMethodCall(MethodCall call) async {
     switch (call.method) {
       case "platformEvent":
